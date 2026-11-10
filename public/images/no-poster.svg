@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 330" fill="none">
+  <rect width="240" height="330" fill="#2f2f2f"/>
+  <rect x="85" y="115" width="70" height="70" rx="12" stroke="#8a8a8a" stroke-width="4"/>
+  <path d="M108 135L136 150L108 165Z" fill="#8a8a8a"/>
+  <text x="120" y="222" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#8a8a8a">Нет постера</text>
+</svg>

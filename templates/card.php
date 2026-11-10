@@ -1,5 +1,5 @@
 <div class="card" data-id="<?= (int) $review['id'] ?>">
-  <img class="poster" src="uploads/posters/<?= e($review['poster']) ?>" alt="<?= e($review['title']) ?>">
+  <img class="poster" src="<?= e(posterUrl($review['poster'])) ?>" alt="<?= e($review['title']) ?>">
   <div class="card-text">
     <h2 class="card-title">
       <a href="review.php?id=<?= (int) $review['id'] ?>"><?= e($review['title']) ?> (<?= (int) $review['release_year'] ?>)</a>

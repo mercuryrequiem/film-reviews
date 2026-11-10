@@ -35,7 +35,7 @@ render('header', ['pageTitle' => $title . ' — Сайт с обзорами ф�
 
     <!-- Обзор -->
     <article class="review">
-      <img class="review-poster" src="uploads/posters/<?= e($review['poster']) ?>" alt="<?= e($review['title']) ?>">
+      <img class="review-poster" src="<?= e(posterUrl($review['poster'])) ?>" alt="<?= e($review['title']) ?>">
       <h1 class="review-title"><?= e($title) ?></h1>
       <a class="button back" href="index.php">
         <svg class="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>

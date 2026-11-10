@@ -40,7 +40,7 @@ class Database
     {
         if (!is_file(self::CONFIG_PATH)) {
             throw new RuntimeException(
-                'Нет файла config/parameters.ini. Скопируйте config/parameters.ini.dist и заполните его.'
+                'Нет файла config/parameters.ini. Запустите setup.bat или скопируйте config/parameters.ini.dist и заполните его.'
             );
         }
 

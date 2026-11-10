@@ -27,6 +27,16 @@ function formatDate(string $dateTime): string
 }
 
 /**
+ * Адрес постера (относительно public/) или заглушка, если файла нет на диске.
+ */
+function posterUrl(string $file): string
+{
+    $path = __DIR__ . '/../public/uploads/posters/' . $file;
+
+    return is_file($path) ? 'uploads/posters/' . rawurlencode($file) : 'images/no-poster.svg';
+}
+
+/**
  * Подключает шаблон из папки templates и передаёт ему переменные.
  *
  * @param array<string, mixed> $vars

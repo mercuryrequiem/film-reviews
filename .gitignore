@@ -32,3 +32,6 @@ desktop.ini
 # Логи и временные файлы
 *.log
 *.tmp
+
+# Настройки Claude Code
+/.claude/

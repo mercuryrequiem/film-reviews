@@ -38,22 +38,33 @@ document.getElementById('logout').addEventListener('click', (e) => {
 
 // ---------- Модальное окно ----------
 
+// Видео в окне трейлера грузится при открытии и выгружается при закрытии,
+// чтобы оно не играло в фоне
+function stopVideos() {
+  document.querySelectorAll('.modal iframe[data-src]').forEach((frame) => frame.removeAttribute('src'));
+}
+
 function openModal(id) {
   Object.values(modals).forEach((m) => m.classList.remove('is-open'));
+  stopVideos();
   modals[id].classList.add('is-open');
+  modals[id].querySelectorAll('iframe[data-src]').forEach((frame) => {
+    frame.src = frame.dataset.src;
+  });
   document.body.style.overflow = 'hidden';
 }
 
 function closeModals() {
   Object.values(modals).forEach((m) => m.classList.remove('is-open'));
+  stopVideos();
   document.body.style.overflow = '';
 }
 
-// Ссылки вида href="#registration" / "#login" открывают окно или переключают форму
-document.querySelectorAll('a[href="#registration"], a[href="#login"]').forEach((link) => {
+// Ссылки вида href="#registration" / "#login" и кнопки с data-modal="id" открывают окно
+document.querySelectorAll('a[href="#registration"], a[href="#login"], [data-modal]').forEach((link) => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
-    openModal(link.getAttribute('href').slice(1));
+    openModal(link.dataset.modal || link.getAttribute('href').slice(1));
   });
 });
 

@@ -430,6 +430,35 @@ h1 {
   right: 20px;
 }
 
+/* Окно с трейлером */
+.modal-video .modal-window {
+  max-width: 960px;
+}
+
+.modal-title {
+  margin: 0 32px 20px 0;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 500;
+}
+
+.video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #000000;
+}
+
+.video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 /* Вкладки "Регистрация" и "Авторизация" */
 .tabs {
   display: flex;
@@ -875,6 +904,12 @@ h1 {
   .modal-close {
     top: -40px;
     right: 20px;
+  }
+
+  .modal-title {
+    margin-right: 0;
+    font-size: 20px;
+    line-height: 26px;
   }
 
   .tabs {

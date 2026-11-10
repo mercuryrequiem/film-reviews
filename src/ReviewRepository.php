@@ -8,10 +8,13 @@ use PDO;
 
 class ReviewRepository
 {
-    public const PAGE_SIZE = 6;
+    public const PAGE_SIZE = 10;
 
-    public function __construct(private PDO $pdo)
+    private PDO $pdo;
+
+    public function __construct(PDO $pdo)
     {
+        $this->pdo = $pdo;
     }
 
     /**
@@ -54,7 +57,7 @@ class ReviewRepository
     public function findById(int $id): ?array
     {
         $statement = $this->pdo->prepare(
-            'SELECT r.id, r.title, r.release_year, r.poster, r.trailer_url, r.content, r.created_at,
+            'SELECT r.title, r.release_year, r.poster, r.trailer_url, r.content, r.created_at,
                     u.name AS author_name
              FROM reviews r
              JOIN users u ON u.id = r.author_id
@@ -73,7 +76,7 @@ class ReviewRepository
     public function findComments(int $reviewId): array
     {
         $statement = $this->pdo->prepare(
-            'SELECT c.id, c.text, c.created_at, u.name AS author_name
+            'SELECT c.text, c.created_at, u.name AS author_name
              FROM comments c
              JOIN users u ON u.id = c.user_id
              WHERE c.review_id = :review_id

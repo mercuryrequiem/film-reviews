@@ -36,7 +36,7 @@ render('header', ['pageTitle' => 'Сайт с обзорами фильмов'])
 <?php endforeach; ?>
     </div>
 
-    <a class="button more" href="more.php" <?= $hasMore ? '' : 'hidden' ?>>
+    <a class="button more" href="#" <?= $hasMore ? '' : 'hidden' ?>>
       <svg class="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7L10 13L16 7"/></svg>
       Показать еще
     </a>

@@ -37,6 +37,21 @@ function posterUrl(string $file): string
 }
 
 /**
+ * Адрес для встраивания ролика YouTube (iframe) или null, если ссылка не на YouTube.
+ * Понимает ссылки вида youtube.com/watch?v=ID, youtu.be/ID, youtube.com/embed/ID.
+ */
+function youtubeEmbedUrl(?string $url): ?string
+{
+    $pattern = '~(?:youtube\.com/(?:watch\?(?:[^#]*&)?v=|embed/|shorts/)|youtu\.be/)([\w-]{11})~';
+
+    if ($url === null || !preg_match($pattern, $url, $matches)) {
+        return null;
+    }
+
+    return 'https://www.youtube.com/embed/' . $matches[1];
+}
+
+/**
  * Подключает шаблон из папки templates и передаёт ему переменные.
  *
  * @param array<string, mixed> $vars

@@ -28,6 +28,7 @@ try {
 
 $title = $review['title'] . ' (' . $review['release_year'] . ')';
 $paragraphs = preg_split('/\R{2,}/', trim($review['content']));
+$embedUrl = youtubeEmbedUrl($review['trailer_url']);
 
 render('header', ['pageTitle' => $title . ' — Сайт с обзорами фильмов']);
 ?>
@@ -43,7 +44,7 @@ render('header', ['pageTitle' => $title . ' — Сайт с обзорами ф�
       </a>
       <p class="meta"><span>Добавлено <?= e(formatDate($review['created_at'])) ?></span><img class="dot" src="images/dot.svg" alt="" width="4" height="4"><span><?= e($review['author_name']) ?></span></p>
 <?php if ($review['trailer_url']): ?>
-      <a class="button trailer" href="<?= e($review['trailer_url']) ?>" target="_blank" rel="noopener">
+      <a class="button trailer" href="<?= e($review['trailer_url']) ?>" target="_blank" rel="noopener"<?= $embedUrl ? ' data-modal="trailer"' : '' ?>>
         <svg class="icon" viewBox="0 0 20 20" fill="currentColor"><path d="M14.8804 8.21738C16.2415 8.99512 16.2194 10.9652 14.8412 11.7122L6.95306 15.9878C5.62045 16.7101 4 15.7453 4 14.2295L4 5.44636C4 3.91071 5.65896 2.94798 6.99228 3.70987L14.8804 8.21738Z"/></svg>
         Трейлер
       </a>
@@ -74,4 +75,17 @@ render('header', ['pageTitle' => $title . ' — Сайт с обзорами ф�
     </section>
   </main>
 
+<?php if ($embedUrl): ?>
+  <!-- Окно с трейлером: видео загружается только при открытии -->
+  <div class="modal modal-video" id="trailer">
+    <div class="modal-window">
+      <a class="modal-close" href="#"><img src="images/close.svg" alt="Закрыть" width="20" height="20"></a>
+      <h2 class="modal-title">Трейлер: <?= e($title) ?></h2>
+      <div class="video">
+        <iframe data-src="<?= e($embedUrl) ?>?autoplay=1" title="Трейлер: <?= e($title) ?>" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+<?php endif; ?>
 <?php render('footer'); ?>

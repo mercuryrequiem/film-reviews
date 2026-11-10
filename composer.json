@@ -3,7 +3,7 @@
     "description": "Сайт с обзорами фильмов (лабораторная работа №2)",
     "type": "project",
     "require": {
-        "php": ">=8.0",
+        "php": ">=7.4",
         "ext-pdo": "*"
     },
     "require-dev": {

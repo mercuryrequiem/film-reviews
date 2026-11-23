@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-// Простой автозагрузчик: App\Foo\Bar -> src/Foo/Bar.php
 spl_autoload_register(static function (string $class): void {
     $prefix = 'App\\';
 

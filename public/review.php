@@ -34,7 +34,6 @@ render('header', ['pageTitle' => $title . ' — Сайт с обзорами ф�
 ?>
   <main class="container">
 
-    <!-- Обзор -->
     <article class="review">
       <img class="review-poster" src="<?= e(posterUrl($review['poster'])) ?>" alt="<?= e($review['title']) ?>">
       <h1 class="review-title"><?= e($title) ?></h1>
@@ -56,7 +55,6 @@ render('header', ['pageTitle' => $title . ' — Сайт с обзорами ф�
       </div>
     </article>
 
-    <!-- Комментарии -->
     <section class="comments">
       <div class="comments-head">
         <h2 class="comments-title">Комментарии<sup><?= count($comments) ?></sup></h2>
@@ -76,7 +74,6 @@ render('header', ['pageTitle' => $title . ' — Сайт с обзорами ф�
   </main>
 
 <?php if ($embedUrl): ?>
-  <!-- Окно с трейлером: видео загружается только при открытии -->
   <div class="modal modal-video" id="trailer">
     <div class="modal-window">
       <a class="modal-close" href="#"><img src="images/close.svg" alt="Закрыть" width="20" height="20"></a>

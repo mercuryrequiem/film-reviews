@@ -20,7 +20,6 @@ render('header', ['pageTitle' => 'Сайт с обзорами фильмов'])
 ?>
   <main class="container">
 
-    <!-- Заголовок и кнопка -->
     <div class="top">
       <h1>Топ 20 фильмов</h1>
       <a class="button button-fill" href="#">
@@ -29,7 +28,6 @@ render('header', ['pageTitle' => 'Сайт с обзорами фильмов'])
       </a>
     </div>
 
-    <!-- Карточки обзоров -->
     <div class="cards">
 <?php foreach ($reviews as $review): ?>
       <?php render('card', ['review' => $review]); ?>

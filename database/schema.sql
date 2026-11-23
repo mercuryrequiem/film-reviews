@@ -1,6 +1,3 @@
--- Схема БД сайта с обзорами фильмов.
--- Импорт: phpMyAdmin -> Импорт, либо mysql -u root < database/schema.sql
-
 CREATE DATABASE IF NOT EXISTS film_reviews
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;

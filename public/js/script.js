@@ -1,25 +1,21 @@
 'use strict';
 
-// Все окна на странице: { registration: ..., login: ... }
 const modals = {};
 document.querySelectorAll('.modal').forEach((m) => {
   modals[m.id] = m;
 });
 
-// ---------- Текущий пользователь ----------
 
 const USERS_KEY = 'users';
 const CURRENT_KEY = 'currentUser';
 const getUsers = () => JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
 const currentUser = JSON.parse(localStorage.getItem(CURRENT_KEY));
 
-// В шапке вместо "Регистрация / Вход" показываем приветствие
 function showUser(user) {
   document.body.classList.add('logged-in');
   document.getElementById('user-name').textContent = user.name.split(' ')[0];
 }
 
-// Запоминаем, кто вошёл. Страницу не перезагружаем, иначе браузер очистит консоль
 function login(user) {
   localStorage.setItem(CURRENT_KEY, JSON.stringify(user));
   showUser(user);
@@ -36,10 +32,7 @@ document.getElementById('logout').addEventListener('click', (e) => {
   location.href = 'index.html';
 });
 
-// ---------- Модальное окно ----------
 
-// Видео в окне трейлера грузится при открытии и выгружается при закрытии,
-// чтобы оно не играло в фоне
 function stopVideos() {
   document.querySelectorAll('.modal iframe[data-src]').forEach((frame) => frame.removeAttribute('src'));
 }
@@ -60,7 +53,6 @@ function closeModals() {
   document.body.style.overflow = '';
 }
 
-// Ссылки вида href="#registration" / "#login" и кнопки с data-modal="id" открывают окно
 document.querySelectorAll('a[href="#registration"], a[href="#login"], [data-modal]').forEach((link) => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
@@ -75,7 +67,6 @@ document.querySelectorAll('.modal-close').forEach((btn) => {
   });
 });
 
-// клик по затемнению и Esc
 Object.values(modals).forEach((m) => {
   m.addEventListener('click', (e) => {
     if (e.target === m) closeModals();
@@ -85,16 +76,11 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeModals();
 });
 
-// ---------- Валидация ----------
 
-// Правила записаны прямо в HTML: required, type, pattern, minlength.
-// Браузер сам проверяет их и сообщает результат через input.validity,
-// а тексты ошибок лежат в атрибуте data-error.
 
 function setError(input, message) {
   const field = input.closest('.field') || input.closest('.agree');
 
-  // Для обычных полей сообщение лежит внутри поля, для чекбокса сразу после него
   let box = field.querySelector('.error');
   if (!box && field.nextElementSibling && field.nextElementSibling.matches('.agree-error')) {
     box = field.nextElementSibling;
@@ -115,11 +101,9 @@ function setError(input, message) {
   field.classList.toggle('has-error', Boolean(message));
 }
 
-// Проверяет поле и возвращает текст ошибки (пустая строка, если всё хорошо)
 function checkField(form, input) {
-  input.setCustomValidity(''); // сбрасываем прошлую ошибку
+  input.setCustomValidity('');
 
-  // Два правила нельзя записать в HTML, поэтому задаём их через setCustomValidity
   if (form.closest('.modal').id === 'registration') {
     if (input.name === 'email' && getUsers().some((u) => u.email === input.value.toLowerCase())) {
       input.setCustomValidity('Пользователь с таким email уже зарегистрирован');
@@ -135,10 +119,9 @@ function checkField(form, input) {
   if (v.valueMissing) return 'Поле обязательно для заполнения';
   if (v.customError) return input.validationMessage;
   if (v.tooShort) return 'Минимум 6 символов';
-  return input.dataset.error; // значение не подошло под type или pattern
+  return input.dataset.error;
 }
 
-// Проверяет поле и показывает ошибку под ним
 function validateField(form, input) {
   const error = checkField(form, input);
   setError(input, error);
@@ -154,9 +137,8 @@ document.querySelectorAll('.modal .form').forEach((form) => {
     });
     input.addEventListener('input', () => {
       if (input.closest('.has-error')) validateField(form, input);
-      else checkField(form, input); // чтобы кнопка отправки меняла цвет
+      else checkField(form, input);
 
-      // при смене пароля заново проверяем "Повторите пароль"
       const repeat = form.elements.password2;
       if (input.name === 'password' && repeat && repeat.value) validateField(form, repeat);
     });
@@ -175,7 +157,6 @@ document.querySelectorAll('.modal .form').forEach((form) => {
     console.log(isRegistration ? 'Регистрация:' : 'Авторизация:', data);
 
     if (isRegistration) {
-      // Сохраняем пользователя (без сервера данные лежат в браузере) и сразу входим
       const { name, email, phone, password } = data;
       const user = { name, email: email.toLowerCase(), phone, password };
       localStorage.setItem(USERS_KEY, JSON.stringify([...getUsers(), user]));
@@ -185,7 +166,6 @@ document.querySelectorAll('.modal .form').forEach((form) => {
       return;
     }
 
-    // Авторизация: ищем пользователя с таким email и паролем
     const user = getUsers().find((u) => u.email === data.email.toLowerCase() && u.password === data.password);
     if (!user) {
       setError(form.elements.password, 'Неверный email или пароль');
@@ -197,18 +177,15 @@ document.querySelectorAll('.modal .form').forEach((form) => {
   });
 });
 
-// ---------- Кнопка "Показать еще" ----------
 
 const cards = document.querySelector('.cards');
 const more = document.querySelector('.more');
 
-// Кнопка есть только на главной странице
 if (more) {
   more.addEventListener('click', async (e) => {
     e.preventDefault();
     if (more.classList.contains('is-loading')) return;
 
-    // Следующая порция начинается после последней показанной карточки
     const lastId = cards.lastElementChild.dataset.id;
     more.classList.add('is-loading');
 

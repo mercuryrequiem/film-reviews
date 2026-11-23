@@ -3,7 +3,6 @@ chcp 65001 >nul
 setlocal
 cd /d "%~dp0"
 
-rem Settings: change if XAMPP is installed in another folder or MySQL has a password
 set "MYSQL=C:\xampp\mysql\bin\mysql.exe"
 set "DBUSER=root"
 

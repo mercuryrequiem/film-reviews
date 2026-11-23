@@ -1,27 +1,22 @@
-# Настройки окружения (образец лежит в config/parameters.ini.dist)
 /config/parameters.ini
 
-# Загружаемые файлы и картинки-контент
 /public/uploads/*
 !/public/uploads/.gitkeep
 !/public/uploads/posters/
 /public/uploads/posters/*
 !/public/uploads/posters/.gitkeep
 
-# Дампы БД (схема и демо-данные в database/schema.sql и seed.sql остаются в репозитории)
 *.dump.sql
 *.sql.gz
 *.sql.zip
 /database/backup*
 
-# Зависимости и кэш инструментов
 /vendor/
 /tools/
 .php-cs-fixer.cache
 .phpunit.result.cache
 node_modules/
 
-# Служебные файлы IDE и ОС
 .idea/
 .vscode/
 *.swp
@@ -29,9 +24,5 @@ node_modules/
 Thumbs.db
 desktop.ini
 
-# Логи и временные файлы
 *.log
 *.tmp
-
-# Настройки Claude Code
-/.claude/

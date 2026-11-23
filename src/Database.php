@@ -13,9 +13,6 @@ class Database
 
     private static ?PDO $connection = null;
 
-    /**
-     * Возвращает единое подключение к БД (создаёт его при первом вызове).
-     */
     public static function connection(): PDO
     {
         if (self::$connection === null) {
@@ -33,9 +30,6 @@ class Database
         return self::$connection;
     }
 
-    /**
-     * @return array<string, string>
-     */
     private static function loadConfig(): array
     {
         if (!is_file(self::CONFIG_PATH)) {

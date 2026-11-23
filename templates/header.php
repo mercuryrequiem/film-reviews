@@ -8,7 +8,6 @@
 </head>
 <body>
 
-  <!-- Шапка -->
   <header class="header">
     <div class="container header-inner">
       <a class="logo" href="index.php">

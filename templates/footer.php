@@ -1,4 +1,3 @@
-  <!-- Подвал -->
   <footer class="footer">
     <div class="container footer-inner">
       <a class="footer-mail" href="mailto:info@gmail.com">info@gmail.com</a>
@@ -6,7 +5,6 @@
     </div>
   </footer>
 
-  <!-- Окно регистрации -->
   <div class="modal" id="registration">
     <div class="modal-window">
       <a class="modal-close" href="#"><img src="images/close.svg" alt="Закрыть" width="20" height="20"></a>
@@ -53,7 +51,6 @@
     </div>
   </div>
 
-  <!-- Окно авторизации -->
   <div class="modal" id="login">
     <div class="modal-window">
       <a class="modal-close" href="#"><img src="images/close.svg" alt="Закрыть" width="20" height="20"></a>

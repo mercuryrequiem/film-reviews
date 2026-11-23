@@ -7,7 +7,6 @@ use App\ReviewRepository;
 
 require __DIR__ . '/../src/bootstrap.php';
 
-// Отдаёт следующую порцию карточек (HTML) после записи с id = last_id
 $lastId = filter_input(INPUT_GET, 'last_id', FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
 
 if (!$lastId) {

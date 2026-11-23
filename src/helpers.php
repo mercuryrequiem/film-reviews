@@ -2,17 +2,11 @@
 
 declare(strict_types=1);
 
-/**
- * Экранирует строку для вывода в HTML.
- */
 function e(?string $value): string
 {
     return htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
-/**
- * Форматирует дату вида "15 августа".
- */
 function formatDate(string $dateTime): string
 {
     static $months = [
@@ -26,9 +20,6 @@ function formatDate(string $dateTime): string
     return date('j', $timestamp) . ' ' . $months[(int) date('n', $timestamp)];
 }
 
-/**
- * Адрес постера (относительно public/) или заглушка, если файла нет на диске.
- */
 function posterUrl(string $file): string
 {
     $path = __DIR__ . '/../public/uploads/posters/' . $file;
@@ -36,10 +27,6 @@ function posterUrl(string $file): string
     return is_file($path) ? 'uploads/posters/' . rawurlencode($file) : 'images/no-poster.svg';
 }
 
-/**
- * Адрес для встраивания ролика YouTube (iframe) или null, если ссылка не на YouTube.
- * Понимает ссылки вида youtube.com/watch?v=ID, youtu.be/ID, youtube.com/embed/ID.
- */
 function youtubeEmbedUrl(?string $url): ?string
 {
     $pattern = '~(?:youtube\.com/(?:watch\?(?:[^#]*&)?v=|embed/|shorts/)|youtu\.be/)([\w-]{11})~';
@@ -51,11 +38,6 @@ function youtubeEmbedUrl(?string $url): ?string
     return 'https://www.youtube.com/embed/' . $matches[1];
 }
 
-/**
- * Подключает шаблон из папки templates и передаёт ему переменные.
- *
- * @param array<string, mixed> $vars
- */
 function render(string $template, array $vars = []): void
 {
     extract($vars, EXTR_SKIP);
@@ -63,9 +45,6 @@ function render(string $template, array $vars = []): void
     require __DIR__ . '/../templates/' . $template . '.php';
 }
 
-/**
- * Показывает страницу ошибки и завершает работу скрипта.
- */
 function abort(int $status, string $message): void
 {
     http_response_code($status);

@@ -17,12 +17,6 @@ class ReviewRepository
         $this->pdo = $pdo;
     }
 
-    /**
-     * Порция карточек для главной страницы, от новых к старым.
-     * Постраничность без OFFSET: берём записи с id меньше последнего показанного.
-     *
-     * @return array{items: array<int, array<string, mixed>>, hasMore: bool}
-     */
     public function findPage(?int $lastId = null): array
     {
         $where = $lastId === null ? '' : 'WHERE id < :last_id';
@@ -39,7 +33,6 @@ class ReviewRepository
             $statement->bindValue(':last_id', $lastId, PDO::PARAM_INT);
         }
 
-        // Берём на одну запись больше, чтобы понять, есть ли следующая порция
         $statement->bindValue(':limit', self::PAGE_SIZE + 1, PDO::PARAM_INT);
         $statement->execute();
 
@@ -49,11 +42,6 @@ class ReviewRepository
         return ['items' => array_slice($items, 0, self::PAGE_SIZE), 'hasMore' => $hasMore];
     }
 
-    /**
-     * Обзор с именем автора или null, если обзора нет.
-     *
-     * @return array<string, mixed>|null
-     */
     public function findById(int $id): ?array
     {
         $statement = $this->pdo->prepare(
@@ -68,11 +56,6 @@ class ReviewRepository
         return $statement->fetch() ?: null;
     }
 
-    /**
-     * Комментарии к обзору, отсортированные по дате добавления.
-     *
-     * @return array<int, array<string, mixed>>
-     */
     public function findComments(int $reviewId): array
     {
         $statement = $this->pdo->prepare(
